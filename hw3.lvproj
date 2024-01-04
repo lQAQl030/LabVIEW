@@ -13,13 +13,14 @@
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="ctl" Type="Folder">
 			<Item Name="Exitbtn.ctl" Type="VI" URL="../main.llb/Exitbtn.ctl"/>
+			<Item Name="Homebtn.ctl" Type="VI" URL="../main.llb/Homebtn.ctl"/>
+			<Item Name="Modebtn.ctl" Type="VI" URL="../main.llb/Modebtn.ctl"/>
 			<Item Name="Settingsbtn.ctl" Type="VI" URL="../main.llb/Settingsbtn.ctl"/>
 			<Item Name="Startbtn.ctl" Type="VI" URL="../main.llb/Startbtn.ctl"/>
 		</Item>
 		<Item Name="image" Type="Folder" URL="../image">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
-		<Item Name="Homebtn.ctl" Type="VI" URL="../main.llb/Homebtn.ctl"/>
 		<Item Name="main.vi" Type="VI" URL="../main.llb/main.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
