@@ -1,181 +1,104 @@
-    if (key == 73)
-    {
-        map[i][j] = 14;
-        if (i - 1 >= 0)
-        {
-            if (map[i - 1][j] < 5)
-            {
-                map[i--][j] = 0;
-                map[i][j] = 14;
-            }
-            else if (map[i - 1][j] >= 18 && map[i - 1][j] <= 23)
-            {
-                if (props[0] == 0)
-                {
-                    props[0] = int((map[i - 1][j] - 16) / 2);
-                }
-                else if (props[1] == 0)
-                {
-                    props[1] = int((map[i - 1][j] - 16) / 2);
-                }
-                else if (props[2] == 0)
-                {
-                    props[2] = int((map[i - 1][j] - 16) / 2);
-                }
-                map[i--][j] = 0;
-                map[i][j] = 14;
-            }
-        }
+// C program for Dijkstra's single source shortest path
+// algorithm. The program is for adjacency matrix
+// representation of the graph
+ 
+#include <limits.h>
+#include <stdbool.h>
+#include <stdio.h>
+ 
+// Number of vertices in the graph
+#define V 9
+ 
+// A utility function to find the vertex with minimum
+// distance value, from the set of vertices not yet included
+// in shortest path tree
+int minDistance(int dist[], bool sptSet[])
+{
+    // Initialize min value
+    int min = INT_MAX, min_index;
+ 
+    for (int v = 0; v < V; v++)
+        if (sptSet[v] == false && dist[v] <= min)
+            min = dist[v], min_index = v;
+ 
+    return min_index;
+}
+ 
+// A utility function to print the constructed distance
+// array
+void printSolution(int dist[])
+{
+    printf("Vertex \t\t Distance from Source\n");
+    for (int i = 0; i < V; i++)
+        printf("%d \t\t\t\t %d\n", i, dist[i]);
+}
+ 
+// Function that implements Dijkstra's single source
+// shortest path algorithm for a graph represented using
+// adjacency matrix representation
+void dijkstra(int graph[V][V], int src)
+{
+    int dist[V]; // The output array.  dist[i] will hold the
+                 // shortest
+    // distance from src to i
+ 
+    bool sptSet[V]; // sptSet[i] will be true if vertex i is
+                    // included in shortest
+    // path tree or shortest distance from src to i is
+    // finalized
+ 
+    // Initialize all distances as INFINITE and stpSet[] as
+    // false
+    for (int i = 0; i < V; i++)
+        dist[i] = INT_MAX, sptSet[i] = false;
+ 
+    // Distance of source vertex from itself is always 0
+    dist[src] = 0;
+ 
+    // Find shortest path for all vertices
+    for (int count = 0; count < V - 1; count++) {
+        // Pick the minimum distance vertex from the set of
+        // vertices not yet processed. u is always equal to
+        // src in the first iteration.
+        int u = minDistance(dist, sptSet);
+ 
+        // Mark the picked vertex as processed
+        sptSet[u] = true;
+ 
+        // Update dist value of the adjacent vertices of the
+        // picked vertex.
+        for (int v = 0; v < V; v++)
+ 
+            // Update dist[v] only if is not in sptSet,
+            // there is an edge from u to v, and total
+            // weight of path from src to  v through u is
+            // smaller than current value of dist[v]
+            if (!sptSet[v] && graph[u][v]
+                && dist[u] != INT_MAX
+                && dist[u] + graph[u][v] < dist[v])
+                dist[v] = dist[u] + graph[u][v];
     }
-    else if (key == 74)
-    {
-        map[i][j] = 16;
-        if (j - 1 >= 0)
-        {
-            if (map[i][j - 1] < 5)
-            {
-                map[i][j--] = 0;
-                map[i][j] = 16;
-            }
-            else if (map[i][j - 1] >= 18 && map[i][j - 1] <= 23)
-            {
-                if (props[0] == 0)
-                {
-                    props[0] = int((map[i][j - 1] - 16) / 2);
-                }
-                else if (props[1] == 0)
-                {
-                    props[1] = int((map[i][j - 1] - 16) / 2);
-                }
-                else if (props[2] == 0)
-                {
-                    props[2] = int((map[i][j - 1] - 16) / 2);
-                }
-                map[i][j--] = 0;
-                map[i][j] = 16;
-            }
-        }
-    }
-    else if (key == 75)
-    {
-        map[i][j] = 15;
-        if (i + 1 < 11)
-        {
-            if (map[i + 1][j] < 5)
-            {
-                map[i++][j] = 0;
-                map[i][j] = 15;
-            }
-            else if (map[i + 1][j] >= 18 && map[i + 1][j] <= 23)
-            {
-                if (props[0] == 0)
-                {
-                    props[0] = int((map[i + 1][j] - 16) / 2);
-                }
-                else if (props[1] == 0)
-                {
-                    props[1] = int((map[i + 1][j] - 16) / 2);
-                }
-                else if (props[2] == 0)
-                {
-                    props[2] = int((map[i + 1][j] - 16) / 2);
-                }
-                map[i++][j] = 0;
-                map[i][j] = 15;
-            }
-        }
-    }
-    else if (key == 76)
-    {
-        map[i][j] = 17;
-        if (j + 1 < 11)
-        {
-            if (map[i][j + 1] < 5)
-            {
-                map[i][j++] = 0;
-                map[i][j] = 17;
-            }
-            else if (map[i][j + 1] >= 18 && map[i][j + 1] <= 23)
-            {
-                if (props[0] == 0)
-                {
-                    props[0] = int((map[i][j + 1] - 16) / 2);
-                }
-                else if (props[1] == 0)
-                {
-                    props[1] = int((map[i][j + 1] - 16) / 2);
-                }
-                else if (props[2] == 0)
-                {
-                    props[2] = int((map[i][j + 1] - 16) / 2);
-                }
-                map[i][j + 1] = 0;
-                map[i][j] = 17;
-            }
-        }
-    }
-
-    // Place bomb
-    if (key == 80)
-    {
-        switch (map[i][j])
-        {
-        case 14:
-            if (i - 1 >= 0 && map[i - 1][j] < 5)
-                map[i - 1][j] = 8;
-            break;
-        case 16:
-            if (j - 1 >= 0 && map[i][j - 1] < 5)
-                map[i][j - 1] = 8;
-            break;
-        case 15:
-            if (i + 1 < 11 && map[i + 1][j] < 5)
-                map[i + 1][j] = 8;
-            break;
-        case 17:
-            if (j + 1 < 11 && map[i][j + 1] < 5)
-                map[i][j + 1] = 8;
-            break;
-        default:
-            break;
-        }
-    }
-
-    // ©ñ¹D¨ã
-    if (key == 85 && props[0])
-    {
-        if (props[0] == 3)
-        {
-            switch (map[i][j])
-            {
-            case 14:
-                if (i - 1 >= 0 && map[i - 1][j] < 5)
-                    map[i - 1][j] = 24;
-                break;
-            case 16:
-                if (j - 1 >= 0 && map[i][j - 1] < 5)
-                    map[i][j - 1] = 24;
-                break;
-            case 15:
-                if (i + 1 < 11 && map[i + 1][j] < 5)
-                    map[i + 1][j] = 24;
-                break;
-            case 17:
-                if (j + 1 < 11 && map[i][j + 1] < 5)
-                    map[i][j + 1] = 24;
-                break;
-            default:
-                break;
-            }
-        }
-        else if (props[0] == 1 && h < 3)
-        {
-            h++;
-        }
-        else if (props[0] == 2){
-            h = 4;
-        }
-            props[0] = props[1];
-            props[1] = props[2];
-            props[2] = 0;
-    }
+ 
+    // print the constructed distance array
+    printSolution(dist);
+}
+ 
+// driver's code
+int main()
+{
+    /* Let us create the example graph discussed above */
+    int graph[V][V] = { { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
+                        { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
+                        { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
+                        { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
+                        { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
+                        { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
+                        { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
+                        { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+                        { 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
+ 
+    // Function call
+    dijkstra(graph, 0);
+ 
+    return 0;
+}
